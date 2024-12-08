@@ -1,74 +1,96 @@
-const CACHE_NAME = "V1_cache_FER";
+const CACHE_NAME = 'v1_cache_portfolio';
+const OFFLINE_PAGE = '/index.html';
 
+// Asegúrate que las rutas coincidan con tu estructura de archivos
 const urlsToCache = [
-    './',
-    './assets/favicon.ico',
-    './assets/img/portfolio/1.png',
-    './assets/img/portfolio/2.png',
-    './assets/img/portfolio/3.png',
-    './assets/img/portfolio/c.png',
-    './assets/img/portfolio/fondo.png',
-    './assets/img/portfolio/foto.png',
-    './assets/img/portfolio/java.png',
-    './assets/img/portfolio/logo.png',
-    './assets/img/portfolio/node.png',
-    './assets/img/portfolio/python.png',
-    './assets/img/portfolio/react.png',
-    './assets/img/portfolio/react2.png',
-    './assets/img/portfolio/TASKEASE.jpg',
-    './css/style.css',
-    './js/script.js', // Asegúrate de agregar los archivos JS si los usas
-    './index.html', // Incluye el index.html si es necesario
-    './manifest.json', // Si tienes un manifest, agréguelo también
+  '/',
+  '/index.html',
+  '/css/style.css',
+  '/js/script.js',
+  '/manifest.json',
+  '/assets/img/portfolio/1.png',
+  '/assets/img/portfolio/2.png',
+  '/assets/img/portfolio/3.png',
+  '/assets/img/portfolio/c.png',
+  '/assets/img/portfolio/fondo.png',
+  '/assets/img/portfolio/foto.jpeg',
+  '/assets/img/portfolio/java.png',
+  '/assets/img/portfolio/logo.png',
+  '/assets/img/portfolio/node.png',
+  '/assets/img/portfolio/python.png',
+  '/assets/img/portfolio/react.png',
+  '/assets/img/portfolio/react2.png',
+  '/assets/img/portfolio/TASKEASE.jpg'
 ];
 
-// Evento de instalación
-self.addEventListener('install', e => {
-    e.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => {
-                return cache.addAll(urlsToCache)
-                    .then(() => {
-                        console.log('Archivos cacheados');
-                        self.skipWaiting(); // Corregido para ser llamado como función
-                    });
-            })
-    );
+// Install event
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('Cache abierto');
+        return cache.addAll(urlsToCache);
+      })
+      .then(() => self.skipWaiting())
+  );
 });
 
-// Evento de activación
-self.addEventListener('activate', e => {
-    const listaBlancaCache = [CACHE_NAME];
-
-    e.waitUntil(
-        caches.keys()
-            .then(nombresCache => {
-                return Promise.all(
-                    nombresCache.map(nombresCache => {
-                        if (listaBlancaCache.indexOf(nombresCache) === -1) {
-                            return caches.delete(nombresCache); // Elimina las caches antiguas
-                        }
-                    })
-                );
-            })
-            .then(() => self.clients.claim()) // Asegura que el nuevo SW controle los clientes
-    );
+// Activate event
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    Promise.all([
+      // Limpia caches antiguas
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            if (cacheName !== CACHE_NAME) {
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      }),
+      // Toma control de clientes inmediatamente
+      self.clients.claim()
+    ])
+  );
 });
 
-// Evento de Fetch (captura las solicitudes de los recursos)
-sself.addEventListener('fetch', e => {
-    e.respondWith(
-        caches.match(e.request)
-            .then(cachedResponse => {
-                if (cachedResponse) {
-                    return cachedResponse;
-                }
-                return fetch(e.request).catch(() => {
-                    // Manejo de fallback para cuando no hay conexión
-                    if (e.request.mode === 'navigate') {
-                        return caches.match('./index.html');
-                    }
-                });
-            })
-    );
+// Fetch event
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        // Retorna el recurso cacheado si existe
+        if (response) {
+          return response;
+        }
+
+        // Si no está en cache, intenta fetchearlo
+        return fetch(event.request)
+          .then(response => {
+            // Verifica que sea una respuesta válida
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
+
+            // Clona la respuesta para guardarla en cache
+            const responseToCache = response.clone();
+            caches.open(CACHE_NAME)
+              .then(cache => {
+                cache.put(event.request, responseToCache);
+              });
+
+            return response;
+          })
+          .catch(() => {
+            // Si falla el fetch y es una navegación, muestra la página offline
+            if (event.request.mode === 'navigate') {
+              return caches.match(OFFLINE_PAGE);
+            }
+            // Para otros recursos, puedes retornar una imagen/recurso por defecto
+            return new Response('Sin conexión');
+          });
+      })
+  );
 });
+

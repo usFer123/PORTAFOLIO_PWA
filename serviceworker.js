@@ -14,7 +14,12 @@ const urlsToCache = [
     './assets/img/python.png',
     './assets/img/react.png',
     './assets/img/react2.png',
-    './assets/img/TASKEASE.png'
+    './assets/img/TASKEASE.png',
+    './index.html',
+    './js/script.js',
+    './css/styles.css',
+    './manifest.json'
+
 ];
 
 // Evento de instalación - caché de archivos
@@ -23,10 +28,11 @@ self.addEventListener('install', e => {
         caches.open(CACHE_NAME)
         .then(cache => {
             return cache.addAll(urlsToCache)
-                .then(() => self.skipWaiting()); // Invocar el método correctamente
+                .then(() => self.skipWaiting()); // Invocar correctamente el método
         })
     );
 });
+
 
 // Evento de activación - limpieza de caché antiguo
 self.addEventListener('activate', e => {

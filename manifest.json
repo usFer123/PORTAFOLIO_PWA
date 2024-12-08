@@ -3,7 +3,7 @@
     "short_name": "Portafolio",
     "description": "Explora los proyectos, habilidades y experiencia de Fernanda Perez.",
     "display": "standalone",
-    "start_url": "./index.html?_source=web_app_manifest",
+    "start_url": "/index.html",
     "background_color": "#ffffff",
     "theme_color": "#0d6efd",
     "orientation": "portrait",

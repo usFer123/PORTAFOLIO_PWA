@@ -1,6 +1,6 @@
-const CAHE_NAME = "FP_cache_PWA_MFRP";
+const CACHE_NAME = "FP_cache_PWA_MFRP_v1"; // Versión agregada para controlar actualizaciones
 
-urlsToCache = [
+const urlsToCache = [
     './',
     './assets/img/c.png',
     './assets/img/Captura de pantalla 2024-12-07 152923.png',
@@ -17,49 +17,46 @@ urlsToCache = [
     './assets/img/TASKEASE.png'
 ];
 
-//Funcion de instalacion
-//almacena el nombre y los archivos que van a ir guardados en cache
-
-self.addEventListener('install', e =>{
-    e.waitUntil( //le decimos que detenga el evento hasta que se ejecute lo siguiente
+// Evento de instalación - caché de archivos
+self.addEventListener('install', e => {
+    e.waitUntil(
         caches.open(CACHE_NAME)
-        .then(cache =>{
+        .then(cache => {
             return cache.addAll(urlsToCache)
-            .then(() => self.skipWaiting)
+                .then(() => self.skipWaiting()); // Invocar el método correctamente
         })
+    );
+});
 
-    )
-})
-
-self.addEventListener('activate', e =>{
+// Evento de activación - limpieza de caché antiguo
+self.addEventListener('activate', e => {
     const listaBlancaCache = [CACHE_NAME];
 
     e.waitUntil(
         caches.keys()
         .then(nombresCache => {
             return Promise.all(
-                nombresCache.map(nombresCache =>{
-                    if(listaBlancaCache.indexOf(nombresCache) === -1){
-                        return caches.delete(nombresCache)
+                nombresCache.map(nombresCache => {
+                    if (listaBlancaCache.indexOf(nombresCache) === -1) {
+                        return caches.delete(nombresCache);
                     }
                 })
-            )
+            );
         })
-        //activamos la cache actualizada
-        .then(()=> self.clients.claim())
-    )
+        // Activar el nuevo caché
+        .then(() => self.clients.claim())
+    );
+});
 
-})
-
-self.addEventListener('fetch', e =>{
+// Evento de obtención de archivos - responder desde la caché o buscar en la red
+self.addEventListener('fetch', e => {
     e.respondWith(
         caches.match(e.request)
-        .then(res =>{
-            if(res)
-            {
-                return res
+        .then(res => {
+            if (res) {
+                return res; // Responder desde la caché si existe
             }
-            return fetch(e.request)
+            return fetch(e.request); // Buscar en la red si no está en caché
         })
-    )
-})
+    );
+});

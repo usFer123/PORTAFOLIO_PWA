@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+    <title>María Fernanda - Portfolio</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo"><h1>FP</h1></div>
+            <button class="menu-btn">☰</button>
+            <nav class="menu">
+                <ul>
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#about">Acerca de</a></li>
+                    <li><a href="#services">Servicios</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>¡HOLA! SOY FERNANDA PÉREZ</h1>
+            <p>Bienvenido a mi portafolio personal. Soy programadora y me apasiona crear soluciones tecnológicas innovadoras.</p>
+        </div>
+    </section>
+    
+    
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>ACERCA DE MÍ</h2>
+                    <div class="about-image"><img src="./assets/img/foto.jpeg" alt="Imagen sobre mí"></div>
+                    <p>Soy programadora apasionada por el desarrollo web y la creación de soluciones tecnológicas innovadoras. 
+                        Me especializo en diseñar y desarrollar aplicaciones web que combinan funcionalidad, creatividad y tecnología de punta. 
+                        Mi objetivo es ayudar a transformar ideas en experiencias digitales únicas que impulsen el éxito de los proyectos y generen valor para los usuarios.</p>
+                </div>
+               
+            </div>
+        </div>
+    </section>
+    
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Lenguajes de Desarrollo</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <img src="/assets/img/c.png" alt="">
+                    </div>
+                    <h3>C#</h3>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <img src="/assets/img/node.png" alt="">
+                    </div>
+                    <h3>Node.js</h3>
+                    
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <img src="/assets/img/java.png" alt="">
+                    </div>
+                    <h3>JavaScript</h3>
+                    
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <img src="/assets/img/react.png" alt="">
+                    </div>
+                    <h3>React</h3>
+                    
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <img src="./assets/img/react2.png" alt="">
+                    </div>
+                    <h3>Python</h3>
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="trabajos" class="section-works">
+        <div class="container">
+            <h2 class="section-title">MIS TRABAJOS</h2>
+    
+            <!-- Carrusel de imágenes -->
+            <div id="catalogCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Item 1 -->
+                    <div class="carousel-item active">
+                        <img src="./assets/img/TASKEASE.jpg" class="d-block w-100 img-fluid custom-img" alt="Item 1">
+                        <div class="description text-center mt-3">
+                            <p>TaskEase es una aplicación multiplataforma con .NET MAUI que simplifica la gestión de tareas personales y profesionales mediante notificaciones inteligentes, calendarios y una interfaz intuitiva.</p>
+                        </div>
+                    </div>
+    
+                    <!-- Item 2 -->
+                    <div class="carousel-item">
+                        <img src="./assets/img/Captura de pantalla 2024-12-07 152923.png" class="d-block w-100 img-fluid custom-img" alt="Item 2">
+                        <div class="description text-center mt-3">
+                            <p>Bellos Pelos es una página web diseñada para mejorar la visibilidad de la empresa, con sistemas de reservaciones, contacto directo y una tienda online para facilitar las compras y potenciar el crecimiento.</p>
+                        </div>
+                    </div>
+    
+                    <!-- Item 3 -->
+                    <div class="carousel-item">
+                        <img src="./assets/img/Captura de pantalla 2024-12-07 153448.png" class="d-block w-100 img-fluid custom-img" alt="Item 3">
+                        <div class="description text-center mt-3">
+                            <p>Desarrollé un sistema fácil de usar para O-tek, diseñado para mejorar la comunicación interna y automatizar tareas dentro de la empresa. Este sistema ayuda a reducir los problemas que afectan la productividad y la calidad del producto, permitiendo al personal gestionar de manera más eficiente las operaciones diarias.</p>
+                        </div>
+                    </div>
+    
+                    <!-- Item 4 -->
+                    <div class="carousel-item">
+                        <img src="./assets/img/Captura de pantalla 2024-12-07 160832.png" class="d-block w-100 img-fluid custom-img" alt="Item 4">
+                        <div class="description text-center mt-3">
+                            <p>Desarrollé una página web para RalaPlay, un juego de relación, para promoverlo y proporcionar información clave como reglas, características y descargas. La página fue diseñada para facilitar la interacción con los usuarios y aumentar su visibilidad.</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Controles del carrusel -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#catalogCarouselMujer" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#catalogCarouselMujer" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    
+
+    <!-- Sección "Contacto" -->
+    <section class="contact">
+        <div class="container">
+            <h2>CONTACTA CONMIGO</h2>
+            <p>Si tienes alguna consulta o proyecto en mente, no dudes en contactarme a través de los siguientes medios:</p>
+            <ul>
+                <li><strong>Correo Electrónico:</strong> fernandaperez76437@gmail.com</li>
+                <li><strong>GitHub:</strong> <a href="https://github.com/usfer123" target="_blank">github.com/usfer123</a></li>
+            </ul>
+            <p>¡Espero saber de ti pronto!</p>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+    <script src="./script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
